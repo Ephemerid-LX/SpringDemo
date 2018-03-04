@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 使用无参构造创建对象 -->
+    <bean id="entityDemo" class="cn.xiao.springdemo.iocdi.entity.EntityDemo"/>
+
+    <!--　使用对应参数的有参构造创建对象 -->
+    <bean id="entityDemo1" class="cn.xiao.springdemo.iocdi.entity.EntityDemo">
+        <!-- String类型可以不指定type -->
+        <constructor-arg name="name" value="Jack"/>
+        <constructor-arg name="brother" ref="entityDemo" type="cn.xiao.springdemo.iocdi.entity.EntityDemo"/>
+        <!-- list类型 -->
+        <constructor-arg name="stringList" type="java.util.List">
+            <list>
+                <value>一百</value>
+                <value>200</value>
+                <value>300</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 使用无参构造创建对象，并使用Setter注入属性 -->
+    <bean id="entityDemo2" class="cn.xiao.springdemo.iocdi.entity.EntityDemo">
+        <property name="name" value="Tom"/>
+        <property name="brother" ref="entityDemo1"/>
+        <!-- 注入list -->
+        <property name="stringList">
+            <list>
+                <value>一</value>
+                <value>二</value>
+                <value>三</value>
+            </list>
+        </property>
+        <!-- 注入Map -->
+        <property name="stringDoubleMap">
+            <map>
+                <entry key="身高" value="200"/>
+                <entry key="体重" value="100"/>
+            </map>
+        </property>
+        <!-- 注入Properties -->
+        <property name="properties">
+            <props>
+                <prop key="user">xxxx</prop>
+                <prop key="password">cccc</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
